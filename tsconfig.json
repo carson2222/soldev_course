@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "sourceMap": true,
+    "outDir": "dist"
+  },
+  "include": ["src/**/*", "dApp-development-1/write-data1_3/index.ts"]
+}
