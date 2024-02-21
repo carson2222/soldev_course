@@ -7,15 +7,7 @@ import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 import { NextPage } from "next";
 import solanaIcon from "../assets/solanaLogo.png";
-import { useState } from "react";
-
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
 const Home: NextPage = () => {
-  const [formVisible, setFormVisible] = useState(false);
-  const [balance, setBalance] = useState(0);
-
   return (
     <div className="w-full min-h-screen bg-gradient-to-r from-gray-100 to-gray-200 flex flex-col">
       <WalletContextProvider>
@@ -27,17 +19,14 @@ const Home: NextPage = () => {
           </div>
         </header>
         <main className="w-full h-full flex justify-center items-center flex-1 ">
-          <div className="flex gap-4 flex-col">
-            <DisplayBalance setFormVisible={setFormVisible} balance={balance} setBalance={setBalance} />
-
-            {formVisible && <SendSolForm balance={balance} />}
-
-            {/* Ping funcionality, works but i left just money sending */}
-            {/* <PingButton /> */}
-          </div>
+        <div>
+        <DisplayBalance /><br />
+        <SendSolForm /><br />
+        <PingButton /><br />
+        </div>
         </main>
+
       </WalletContextProvider>
-      <ToastContainer />
     </div>
   );
 };

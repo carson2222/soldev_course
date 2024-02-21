@@ -1,9 +1,13 @@
-import type { Config } from "tailwindcss";
-const colors = require("tailwindcss/colors");
+import type { Config } from "tailwindcss"
 
 const config = {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
+  ],
   prefix: "",
   theme: {
     container: {
@@ -12,10 +16,6 @@ const config = {
       screens: {
         "2xl": "1400px",
       },
-    },
-    colors: {
-      ...colors,
-      mainPurple: "#512da8",
     },
     extend: {
       keyframes: {
@@ -35,6 +35,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+} satisfies Config
 
-export default config;
+export default config
