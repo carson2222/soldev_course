@@ -1,22 +1,22 @@
 "use client";
 import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";
-import { WalletModalProvider, WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-import { useMemo } from "react";
+import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
+import { FC, ReactNode, useMemo } from "react";
 import * as web3 from "@solana/web3.js";
 
 import "@solana/wallet-adapter-react-ui/styles.css";
 
-export default function WalletContextProvider() {
+const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const endpoint = web3.clusterApiUrl("devnet");
   const wallets = useMemo(() => [], []);
 
+  console.log(wallets);
   return (
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets}>
-        <WalletModalProvider>
-          <WalletMultiButton />
-        </WalletModalProvider>
+        <WalletModalProvider>{children}</WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
   );
-}
+};
+export default WalletContextProvider;
