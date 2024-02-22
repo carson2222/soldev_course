@@ -1,18 +1,27 @@
 "use client";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
-import { FC, useEffect, useState } from "react";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
 
-const DisplayBalance: FC = () => {
-  const [balance, setBalance] = useState(0);
+const DisplayBalance = ({
+  setFormVisible,
+  balance,
+  setBalance,
+}: {
+  setFormVisible: Dispatch<SetStateAction<boolean>>;
+  balance: number;
+  setBalance: Dispatch<SetStateAction<number>>;
+}) => {
   const { connection } = useConnection();
   const { publicKey } = useWallet();
 
   useEffect(() => {
     if (!connection || !publicKey) {
       return;
+      setFormVisible(false);
     }
+    setFormVisible(true);
 
     connection.onAccountChange(
       publicKey,
@@ -29,9 +38,20 @@ const DisplayBalance: FC = () => {
 
   return (
     <div>
-      <p className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-        {publicKey ? `Balance: ${balance / LAMPORTS_PER_SOL} SOL` : `Balance: ??? SOL`}</p>
-   
+      {!publicKey && (
+        <div className="flex flex-col justify-center items-center">
+          <p className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 mb-10">
+            Connect wallet to interact
+          </p>
+          <ImSpinner2 size={50} className="animate-spin" />
+        </div>
+      )}
+
+      {publicKey && (
+        <p className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+          Balance: {(balance / LAMPORTS_PER_SOL).toFixed(2)} SOL
+        </p>
+      )}
     </div>
   );
 };
