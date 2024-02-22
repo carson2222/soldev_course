@@ -11,9 +11,12 @@ export const SendSolForm = ({ balance }: { balance: number }) => {
   const { publicKey, sendTransaction } = useWallet();
   const [inputAdress, setInputAdress] = useState("");
   const [inputAmount, setInputAmount] = useState<number>();
-
+  const [signature, setSignature] = useState("");
   const sendSol = () => {
-    if (!connection || !publicKey) return;
+    if (!connection || !publicKey) {
+      notify("error", "Failed to connect with wallet", 3000);
+      return;
+    }
     const balanceSol = balance / web3.LAMPORTS_PER_SOL;
 
     if (inputAdress === "" || inputAmount === undefined) {
@@ -43,16 +46,36 @@ export const SendSolForm = ({ balance }: { balance: number }) => {
     transaction.add(sendSolInstruction);
     sendTransaction(transaction, connection).then((sig) => {
       console.log(sig);
+      setSignature(sig);
+      notify("success", "Transaction sent succesfully");
     });
   };
 
   return (
     <div className="flex flex-col gap-4">
+      {signature && (
+        <a href={`https://solscan.io/tx/${signature}?cluster=devnet`}>
+          <p className="text-center text-mainPurple hover:text-mainPurple/80">{`${signature.slice(
+            0,
+            4
+          )}...${signature.slice(signature.length - 4, signature.length)}`}</p>
+        </a>
+      )}
       <Label htmlFor="address">Address</Label>
-      <Input type="text" id="address" className="" onChange={(e) => setInputAdress(e.target.value)} />
+      <Input
+        type="text"
+        id="address"
+        className=""
+        onChange={(e) => setInputAdress(e.target.value)}
+      />
 
       <Label htmlFor="amount">Amount</Label>
-      <Input type="number" id="amount" className="" onChange={(e) => setInputAmount(+e.target.value)} />
+      <Input
+        type="number"
+        id="amount"
+        className=""
+        onChange={(e) => setInputAmount(+e.target.value)}
+      />
 
       <Button variant={"purple"} className="mt-5" onClick={sendSol}>
         Send Sol

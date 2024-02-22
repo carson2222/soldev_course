@@ -6,8 +6,8 @@ import WalletContextProvider from "@/components/WalletContextProvider";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 import { NextPage } from "next";
-import solanaIcon from "../assets/solanaLogo.png";
 import { useState } from "react";
+import solanaIcon from "../assets/solanaLogo.png";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,14 +21,20 @@ const Home: NextPage = () => {
       <WalletContextProvider>
         <header className="w-full h-20 bg-white flex justify-between items-center px-3 shadow-lg">
           <img src={solanaIcon.src} className="h-full w-auto p-3" />
-          <h1 className="scroll-m-20 text-4xl font-medium tracking-tight lg:text-5xl">Solana money sender</h1>
+          <h1 className="scroll-m-20 ml-10 text-4xl font-medium tracking-tight lg:text-4xl sm:block hidden">
+            Solana money sender
+          </h1>
           <div className="">
             <WalletMultiButton />
           </div>
         </header>
         <main className="w-full h-full flex justify-center items-center flex-1 ">
           <div className="flex gap-4 flex-col">
-            <DisplayBalance setFormVisible={setFormVisible} balance={balance} setBalance={setBalance} />
+            <DisplayBalance
+              setFormVisible={setFormVisible}
+              balance={balance}
+              setBalance={setBalance}
+            />
 
             {formVisible && <SendSolForm balance={balance} />}
 
