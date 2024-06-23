@@ -6,11 +6,5 @@
     "sourceMap": true,
     "outDir": "dist"
   },
-  "include": [
-    "src/**/*",
-    "dApp-development-1/write-data1_3/index.ts",
-    "dApp-development-1/write-data1_3/transfer.ts",
-    "dApp-development-1/write-data1_3/send-ping-transaction.ts",
-    "dApp-development-1/write-data1_3/challange.ts"
-  ]
+  "include": ["**/*", "create_tokens_with_the_token_program/create-token-mint.ts"]
 }
