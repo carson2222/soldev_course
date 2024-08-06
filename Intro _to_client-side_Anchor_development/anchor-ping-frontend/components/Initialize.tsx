@@ -9,7 +9,7 @@ import idl from "../idl.json"
 import { Button } from "@chakra-ui/react"
 
 const PROGRAM_ID = new anchor.web3.PublicKey(
-  `9sMy4hnC9MML6mioESFZmzpntt3focqwUq1ymPgbMf64`
+  `9pbyP2VX8Rc7v4nR5n5Kf5azmnw5hHfkJcZKPHXW98mf`
 )
 
 export interface Props {
@@ -18,39 +18,7 @@ export interface Props {
 }
 
 export const Initialize: FC<Props> = ({ setCounter, setTransactionUrl }) => {
-  const [program, setProgram] = useState<anchor.Program>()
-
-  const { connection } = useConnection()
-  const wallet = useAnchorWallet()
-
-  useEffect(() => {
-    let provider: anchor.Provider
-
-    try {
-      provider = anchor.getProvider()
-    } catch {
-      provider = new anchor.AnchorProvider(connection, wallet, {})
-      anchor.setProvider(provider)
-    }
-
-    const program = new anchor.Program(idl as anchor.Idl, PROGRAM_ID)
-    setProgram(program)
-  }, [])
-
-  const onClick = async () => {
-    const newAccount = anchor.web3.Keypair.generate()
-
-    const sig = await program.methods
-      .initialize()
-      .accounts({
-        counter: newAccount.publicKey,
-      })
-      .signers([newAccount])
-      .rpc()
-
-    setTransactionUrl(`https://explorer.solana.com/tx/${sig}?cluster=devnet`)
-    setCounter(newAccount.publicKey)
-  }
+  const onClick = async () => {}
 
   return <Button onClick={onClick}>Initialize Counter</Button>
 }

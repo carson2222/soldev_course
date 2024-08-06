@@ -6,15 +6,7 @@ import { Increment } from "../components/Increment"
 import { Initialize } from "../components/Initialize"
 import { useState } from "react"
 import Head from "next/head"
-import {
-  Spacer,
-  VStack,
-  Text,
-  Button,
-  Box,
-  Stack,
-  Link,
-} from "@chakra-ui/react"
+import { Spacer, VStack, Text, Button, Box, Stack } from "@chakra-ui/react"
 
 const Home: NextPage = (props) => {
   const [counter, setCounter] = useState("")
@@ -49,9 +41,7 @@ const Home: NextPage = (props) => {
             )}
             <Spacer />
             {transactionUrl && (
-              <Link href={transactionUrl} color="white" isExternal margin={8}>
-                View most recent transaction
-              </Link>
+              <Button margin={8}>View most recent transaction</Button>
             )}
           </div>
         </Stack>
