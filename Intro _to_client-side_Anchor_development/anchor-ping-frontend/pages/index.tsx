@@ -1,17 +1,17 @@
-import { NextPage } from "next"
-import styles from "../styles/Home.module.css"
-import { AppBar } from "../components/AppBar"
-import { useWallet } from "@solana/wallet-adapter-react"
-import { Increment } from "../components/Increment"
-import { Initialize } from "../components/Initialize"
-import { useState } from "react"
-import Head from "next/head"
-import { Spacer, VStack, Text, Button, Box, Stack } from "@chakra-ui/react"
+import { NextPage } from "next";
+import styles from "../styles/Home.module.css";
+import { AppBar } from "../components/AppBar";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { Increment } from "../components/Increment";
+import { Initialize } from "../components/Initialize";
+import { useState } from "react";
+import Head from "next/head";
+import { Spacer, VStack, Text, Button, Box, Stack } from "@chakra-ui/react";
 
 const Home: NextPage = (props) => {
-  const [counter, setCounter] = useState("")
-  const [transactionUrl, setTransactionUrl] = useState("")
-  const wallet = useWallet()
+  const [counter, setCounter] = useState("");
+  const [transactionUrl, setTransactionUrl] = useState("");
+  const wallet = useWallet();
 
   return (
     <div className={styles.App}>
@@ -25,29 +25,25 @@ const Home: NextPage = (props) => {
             {wallet.connected ? (
               counter ? (
                 <VStack>
-                  <Increment
-                    counter={counter}
-                    setTransactionUrl={setTransactionUrl}
-                  />
+                  <Increment counter={counter} setTransactionUrl={setTransactionUrl} />
                 </VStack>
               ) : (
-                <Initialize
-                  setCounter={setCounter}
-                  setTransactionUrl={setTransactionUrl}
-                />
+                <Initialize setCounter={setCounter} setTransactionUrl={setTransactionUrl} />
               )
             ) : (
               <Text color="white">Connect Wallet</Text>
             )}
             <Spacer />
             {transactionUrl && (
-              <Button margin={8}>View most recent transaction</Button>
+              <p>
+                <a href={transactionUrl}>View Transaction</a>
+              </p>
             )}
           </div>
         </Stack>
       </Box>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
